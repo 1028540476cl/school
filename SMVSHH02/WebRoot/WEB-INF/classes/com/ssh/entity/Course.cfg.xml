@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+	<class name="com.ssh.entity.Course" table="t_course">
+
+		<id name="id">
+			<generator class="native" />          <!-- 设置主键id，自增 -->
+		</id>
+		<property name="coursebord" type="float"/>
+		<property name="coursesy" type="integer"/>
+		<property name="coursepeople" type="integer"/>
+		<property name="coursecount" type="integer"/>
+		<property name="coursename" length="50" />
+		<property name="courseclass" length="50" />
+		<property name="coursetime" length="50" />
+		<property name="cotein" length="500" />
+		<property name="coursetype" length="50" />
+		<property name="type" length="50" />
+		 <many-to-one name="teacher"   column="courseteacherid" class="com.ssh.entity.Teacher" /> <!-- course 与teacher的一对多 -->
+		 <set name="students" table="t_course_student" cascade="all" ><!-- course 与student的多对多 -->
+<!-- 		cascade { delete, update, all, none} 就是级联更新和级联删除。比如：数据库中有主帖表（主键表）和回帖表（外键表），当设置了CASCADE之后，当删除主表后，子表也随之消失
+ -->			<key column="courseid"></key>
+			<many-to-many column="studentsid"   class="com.ssh.entity.Student" />
+		</set>
+	</class>
+</hibernate-mapping>

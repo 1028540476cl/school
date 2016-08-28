@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping >
+	<class name="com.ssh.entity.Student" table="t_student">
+
+		<id name="id" >
+			<generator class="native" />          <!-- 设置主键id，自增 -->
+		</id>
+		<property name="studentid"  length="20"/>
+		<property name="name"  length="20"/>
+		<property name="psw" length="20"/>
+		<property name="studentclass" length="50"/>
+		<property name="date" length="50"/>
+		 <set name="courses"  table="t_course_student" inverse="true"><!-- student与course的多对多 -->
+			<key column="studentsid"></key>
+			<many-to-many column="courseid"  class="com.ssh.entity.Course" />
+		</set>
+		
+		<set name="teachers"  table="t_student_teacher"><!-- student与teacher的多对多 -->
+			<key column="studentsid"></key>
+			<many-to-many column="teacherid" class="com.ssh.entity.Teacher" />
+		</set>
+	</class>            
+</hibernate-mapping>

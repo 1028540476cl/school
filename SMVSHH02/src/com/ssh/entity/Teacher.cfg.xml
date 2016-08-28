@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.ssh.entity.Teacher" table="t_teacher">
+
+		<id name="id" type="int">
+			<generator class="native" />          <!-- 设置主键id，自增 -->
+		</id>
+
+		<property name="name" type="java.lang.String" />
+		<property name="teacherid" type="java.lang.String" />
+		<property name="nameclass" type="java.lang.String" />
+		<property name="picture" type="java.lang.String"></property>
+		<!-- <set name="students"  table="t_student_teacher"> teacher与student的多对多
+			<key column="teacherid"></key>
+			<many-to-many column="studentsid"  class="com.ssh.entity.Student" />
+		</set> -->
+		<!-- 配置双向一对多的映射，且由多方来处理关联关系 -->
+		<set name="courses" table="t_course" inverse="true" cascade="save-update"  ><!-- teacher与course的一对多 -->
+			<key column="courseteacherid" />
+			<one-to-many class="com.ssh.entity.Course" />
+		</set>
+	</class>
+</hibernate-mapping>
